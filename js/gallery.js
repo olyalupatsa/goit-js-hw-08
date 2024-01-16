@@ -93,27 +93,32 @@ function onGalleryClick(event) {
 
   const originalSrc = target.dataset.source;
 
-  console.log(originalSrc);
-}
+  const modalContent = `
+    <div style="background-color: rgba(46, 47, 66, 0.8); width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0;">
+      <img src="${originalSrc}" style="width: 1112px; height: 640px; object-fit: contain;" />
+    </div>
+  `;
 
-galleryContainer.addEventListener('click', onGalleryClick);
-
-function onGalleryClick(event) {
-  event.preventDefault();
-  
-  const target = event.target;
-  if (target.nodeName !== 'IMG') {
-    return;
-  }
-
-  const originalSrc = target.dataset.source;
-
-  const instance = basicLightbox.create(`
-    <img src="${originalSrc}" width="800" height="600">
-  `);
+  const instance = basicLightbox.create(modalContent, {
+    onShow: (instance) => {
+      console.log('Модальне вікно відкрите');
+    },
+    onClose: (instance) => {
+      console.log('Модальне вікно закрите');
+    },
+  });
 
   instance.show();
 }
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    basicLightbox.close();
+  }
+});
+
+// Додайте прослуховування кліку для всього контейнера
+galleryContainer.addEventListener('click', onGalleryClick);
 
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
