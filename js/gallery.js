@@ -98,23 +98,20 @@ function onGalleryClick(event) {
   const instance = basicLightbox.create(modalContent, {
     onShow: (instance) => {
       console.log('Модальне вікно відкрите');
+      document.addEventListener('keydown', onDocumentKeyDown);
     },
     onClose: (instance) => {
       console.log('Модальне вікно закрите');
+      document.removeEventListener('keydown', onDocumentKeyDown);
     },
   });
   instance.show();
 }
 
-document.addEventListener('keydown', (event) => {
+function onDocumentKeyDown(event) {
   if (event.key === 'Escape') {
     basicLightbox.close();
   }
-});
-galleryContainer.addEventListener('click', onGalleryClick);
+}
 
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
-    basicLightbox.close();
-  }
-});
+galleryContainer.addEventListener('click', onGalleryClick);
