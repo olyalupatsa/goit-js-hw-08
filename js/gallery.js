@@ -110,7 +110,7 @@ function onGalleryClick(event) {
 
 function onDocumentKeyDown(event) {
   if (event.key === 'Escape') {
-    basicLightbox.close();
+    instance.close();
   }
 }
 
