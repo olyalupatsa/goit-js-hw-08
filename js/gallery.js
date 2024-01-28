@@ -83,6 +83,8 @@ function createGalleryItem({ preview, original, description }) {
 const galleryMarkup = images.map(createGalleryItem).join('');
 galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup);
 
+let instance; 
+
 function onGalleryClick(event) {
   event.preventDefault();
   const target = event.target;
@@ -95,7 +97,7 @@ function onGalleryClick(event) {
       <img src="${originalSrc}" style="width: 1112px; height: 640px; object-fit: contain;" />
     </div>
   `;
-  const instance = basicLightbox.create(modalContent, {
+  instance = basicLightbox.create(modalContent, {
     onShow: (instance) => {
       console.log('Модальне вікно відкрите');
       document.addEventListener('keydown', onDocumentKeyDown);
@@ -113,5 +115,6 @@ function onDocumentKeyDown(event) {
     instance.close();
   }
 }
+
 
 galleryContainer.addEventListener('click', onGalleryClick);
